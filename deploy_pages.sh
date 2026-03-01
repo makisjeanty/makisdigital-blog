@@ -226,6 +226,9 @@ upload_file "$ROOT_DIR/resources/css/admin.css" "public_html/resources/css" "adm
 
 # Views - Public
 upload_file "$ROOT_DIR/resources/views/home.blade.php" "public_html/resources/views" "home.blade.php"
+upload_file "$ROOT_DIR/resources/views/contato.blade.php" "public_html/resources/views" "contato.blade.php"
+upload_file "$ROOT_DIR/resources/views/sobre.blade.php" "public_html/resources/views" "sobre.blade.php"
+upload_file "$ROOT_DIR/resources/views/privacidade.blade.php" "public_html/resources/views" "privacidade.blade.php"
 upload_file "$ROOT_DIR/resources/views/blog/index.blade.php" "public_html/resources/views/blog" "index.blade.php"
 upload_file "$ROOT_DIR/resources/views/blog/show.blade.php" "public_html/resources/views/blog" "show.blade.php"
 upload_file "$ROOT_DIR/resources/views/courses/index.blade.php" "public_html/resources/views/courses" "index.blade.php"
