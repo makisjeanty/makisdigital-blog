@@ -148,11 +148,49 @@
     </section>
 
     <style>
+        .blog-hero-refined {
+            padding: 120px 0 60px;
+            text-align: center;
+            background: radial-gradient(circle at 50% 0%, rgba(108, 99, 255, 0.1) 0%, transparent 70%);
+        }
+
+        .container-ref {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .btn-primary-ref {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            padding: 0.95rem 1.6rem;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #6c63ff, #7c73ff);
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+        }
+
+        .btn-primary-ref:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 12px 28px rgba(108, 99, 255, 0.28);
+            opacity: 0.95;
+        }
+
         .contact-grid-refined {
             display: grid;
-            grid-template-columns: 1fr 1.6fr;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
             gap: 4rem;
             margin-top: -20px;
+        }
+
+        .contact-grid-refined>* {
+            min-width: 0;
         }
 
         .info-card-refined {
@@ -211,6 +249,7 @@
             font-size: 1.1rem;
             font-weight: 500;
             transition: color 0.3s ease;
+            overflow-wrap: anywhere;
         }
 
         .info-text a:hover {
@@ -298,6 +337,13 @@
             font-size: 1rem;
             outline: none;
             transition: all 0.3s ease;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .input-group-refined textarea {
+            min-height: 150px;
+            resize: vertical;
         }
 
         .input-group-refined input:focus,
@@ -352,9 +398,14 @@
         }
 
         @media (max-width: 992px) {
+            .blog-hero-refined {
+                padding: 104px 0 40px;
+            }
+
             .contact-grid-refined {
                 grid-template-columns: 1fr;
                 gap: 3rem;
+                margin-top: 0;
             }
 
             .info-card-refined {
@@ -368,8 +419,73 @@
         }
 
         @media (max-width: 768px) {
+            .container-ref {
+                padding: 0 1rem;
+            }
+
             .form-row-refined {
                 grid-template-columns: 1fr;
+            }
+
+            .info-card-refined {
+                padding: 2rem 1.25rem;
+                border-radius: 18px;
+            }
+
+            .form-container-refined {
+                padding: 1.5rem 1.1rem;
+                border-radius: 18px;
+            }
+
+            .social-links-refined {
+                margin-top: 2.25rem;
+            }
+
+            .social-icons-row {
+                flex-wrap: wrap;
+            }
+
+            .success-alert {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+                padding: 1.25rem;
+                margin-bottom: 2rem;
+            }
+
+            .btn-primary-ref {
+                font-size: 0.9rem;
+                padding: 0.95rem 1.15rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .blog-hero-refined {
+                padding: 96px 0 34px;
+            }
+
+            .hero-title br {
+                display: none;
+            }
+
+            .hero-subtitle {
+                font-size: 0.98rem;
+            }
+
+            .info-item-refined {
+                margin-bottom: 1.5rem;
+                gap: 0.9rem;
+            }
+
+            .info-icon {
+                width: 40px;
+                height: 40px;
+                border-radius: 10px;
+            }
+
+            .info-text a,
+            .info-text span {
+                font-size: 0.98rem;
             }
         }
     </style>
