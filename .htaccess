@@ -1,0 +1,21 @@
+Options -MultiViews -Indexes
+DirectoryIndex public/index.php
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Bloqueia acesso a arquivos sensíveis
+    RewriteRule ^(\.env|\.git|app|config|storage|resources|vendor|database|bootstrap) - [F,L]
+
+    # Redireciona /public e /public/ para raiz
+    RewriteRule ^public/?$ / [R=301,L]
+
+    # Se o arquivo existe na pasta public (CSS, JS, imagens), serve direto
+    RewriteCond %{DOCUMENT_ROOT}/public%{REQUEST_URI} -f
+    RewriteRule ^(.*)$ public/$1 [L]
+
+    # Tudo mais vai para public/index.php (Laravel)
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ public/index.php [QSA,L]
+</IfModule>
