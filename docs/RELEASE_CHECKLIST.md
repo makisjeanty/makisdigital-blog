@@ -35,6 +35,6 @@
 
 ## 4. Operational
 
-- Verify backups and restore procedure.
+- Verify backups and restore procedure (`docs/BACKUP_RUNBOOK.md`).
 - Confirm queue worker status (if enabled).
 - Monitor application health and error rate after release.
