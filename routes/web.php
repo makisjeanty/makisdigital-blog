@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\NewsletterController as AdminNewsletterController;
+use App\Http\Controllers\Admin\AgentController as AdminAgentController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DashboardController;
@@ -88,6 +89,10 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     // Configurações
     Route::get('settings', [\App\Http\Controllers\Admin\SettingsController::class, 'index'])->name('settings.index');
     Route::post('settings', [\App\Http\Controllers\Admin\SettingsController::class, 'update'])->name('settings.update');
+
+    // Agentes (execução assistida)
+    Route::get('agents', [AdminAgentController::class, 'index'])->name('agents.index');
+    Route::post('agents/run', [AdminAgentController::class, 'store'])->name('agents.run');
 });
 
 require __DIR__.'/auth.php';

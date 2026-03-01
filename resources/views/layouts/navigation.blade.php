@@ -15,6 +15,9 @@
                     <x-nav-link :href="route('admin.posts.index')" :active="request()->routeIs('admin.posts.*')">
                         {{ __('Meus Posts') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('admin.agents.index')" :active="request()->routeIs('admin.agents.*')">
+                        {{ __('Agents') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -76,6 +79,9 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('admin.posts.index')" :active="request()->routeIs('admin.posts.*')">
                 {{ __('Meus Posts') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.agents.index')" :active="request()->routeIs('admin.agents.*')">
+                {{ __('Agents') }}
             </x-responsive-nav-link>
         </div>
 

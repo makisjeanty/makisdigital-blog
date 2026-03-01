@@ -109,6 +109,8 @@ create_dir() {
 
 # Estrutura de Diretórios
 create_dir "public_html/app" "Services"
+create_dir "public_html/app" "Agents"
+create_dir "public_html/app/Agents" "Contracts"
 create_dir "public_html/app" "Policies"
 create_dir "public_html/app/Http" "Requests"
 create_dir "public_html/app" "Providers"
@@ -124,7 +126,9 @@ create_dir "public_html/resources/views/admin" "settings"
 create_dir "public_html/resources/views/admin" "lessons"
 create_dir "public_html/resources/views/admin" "categories"
 create_dir "public_html/resources/views/admin" "tags"
+create_dir "public_html/resources/views/admin" "agents"
 create_dir "public_html/app/Http/Controllers" "Admin"
+create_dir "public_html/app/Http/Controllers" "Api"
 create_dir "public_html/resources/views" "courses"
 create_dir "public_html/resources/views" "blog"
 create_dir "public_html/resources/views" "components"
@@ -148,6 +152,7 @@ create_dir "public_html/database" "seeders"
 
 # Core & Config
 upload_file "$ROOT_DIR/routes/web.php" "public_html/routes" "web.php"
+upload_file "$ROOT_DIR/routes/api.php" "public_html/routes" "api.php"
 upload_file "$ROOT_DIR/bootstrap/app.php" "public_html/bootstrap" "app.php"
 upload_file "$ROOT_DIR/config/app.php" "public_html/config" "app.php"
 if [ "${UPLOAD_DOTENV:-0}" = "1" ]; then
@@ -161,8 +166,17 @@ upload_file "$ROOT_DIR/bootstrap/app.php" "public_html/bootstrap" "app.php"
 # Services & Policies
 upload_file "$ROOT_DIR/app/Services/PostService.php" "public_html/app/Services" "PostService.php"
 upload_file "$ROOT_DIR/app/Services/CourseService.php" "public_html/app/Services" "CourseService.php"
+upload_file "$ROOT_DIR/app/Services/AgentRunnerService.php" "public_html/app/Services" "AgentRunnerService.php"
+upload_file "$ROOT_DIR/app/Agents/ContentAgent.php" "public_html/app/Agents" "ContentAgent.php"
+upload_file "$ROOT_DIR/app/Agents/CourseAgent.php" "public_html/app/Agents" "CourseAgent.php"
+upload_file "$ROOT_DIR/app/Agents/MonetizationAgent.php" "public_html/app/Agents" "MonetizationAgent.php"
+upload_file "$ROOT_DIR/app/Agents/AnalyticsAgent.php" "public_html/app/Agents" "AnalyticsAgent.php"
+upload_file "$ROOT_DIR/app/Agents/GrowthAgent.php" "public_html/app/Agents" "GrowthAgent.php"
+upload_file "$ROOT_DIR/app/Agents/AgentRegistry.php" "public_html/app/Agents" "AgentRegistry.php"
+upload_file "$ROOT_DIR/app/Agents/Contracts/AgentInterface.php" "public_html/app/Agents/Contracts" "AgentInterface.php"
 upload_file "$ROOT_DIR/app/Policies/PostPolicy.php" "public_html/app/Policies" "PostPolicy.php"
 upload_file "$ROOT_DIR/app/Http/Middleware/RoleMiddleware.php" "public_html/app/Http/Middleware" "RoleMiddleware.php"
+upload_file "$ROOT_DIR/app/Http/Middleware/EnsureAgentAccess.php" "public_html/app/Http/Middleware" "EnsureAgentAccess.php"
 
 # Requests
 upload_file "$ROOT_DIR/app/Http/Requests/StorePostRequest.php" "public_html/app/Http/Requests" "StorePostRequest.php"
@@ -181,6 +195,7 @@ upload_file "$ROOT_DIR/app/Http/Controllers/SitemapController.php" "public_html/
 upload_file "$ROOT_DIR/app/Http/Controllers/NewsletterController.php" "public_html/app/Http/Controllers" "NewsletterController.php"
 upload_file "$ROOT_DIR/app/Http/Controllers/MercadoPagoController.php" "public_html/app/Http/Controllers" "MercadoPagoController.php"
 upload_file "$ROOT_DIR/app/Http/Controllers/DashboardController.php" "public_html/app/Http/Controllers" "DashboardController.php"
+upload_file "$ROOT_DIR/app/Http/Controllers/Api/AgentRunController.php" "public_html/app/Http/Controllers/Api" "AgentRunController.php"
 upload_file "$ROOT_DIR/config/services.php" "public_html/config" "services.php"
 
 # Auth Controllers
@@ -207,6 +222,7 @@ upload_file "$ROOT_DIR/app/Http/Controllers/Admin/CourseController.php" "public_
 upload_file "$ROOT_DIR/app/Http/Controllers/Admin/LessonController.php" "public_html/app/Http/Controllers/Admin" "LessonController.php"
 upload_file "$ROOT_DIR/app/Http/Controllers/Admin/CategoryController.php" "public_html/app/Http/Controllers/Admin" "CategoryController.php"
 upload_file "$ROOT_DIR/app/Http/Controllers/Admin/TagController.php" "public_html/app/Http/Controllers/Admin" "TagController.php"
+upload_file "$ROOT_DIR/app/Http/Controllers/Admin/AgentController.php" "public_html/app/Http/Controllers/Admin" "AgentController.php"
 
 # Models
 upload_file "$ROOT_DIR/app/Models/User.php" "public_html/app/Models" "User.php"
@@ -218,6 +234,7 @@ upload_file "$ROOT_DIR/app/Models/Category.php" "public_html/app/Models" "Catego
 upload_file "$ROOT_DIR/app/Models/Tag.php" "public_html/app/Models" "Tag.php"
 upload_file "$ROOT_DIR/app/Models/Message.php" "public_html/app/Models" "Message.php"
 upload_file "$ROOT_DIR/app/Models/Newsletter.php" "public_html/app/Models" "Newsletter.php"
+upload_file "$ROOT_DIR/app/Models/AgentRun.php" "public_html/app/Models" "AgentRun.php"
 
 # CSS & JS (Source)
 upload_file "$ROOT_DIR/resources/css/blog.css" "public_html/resources/css" "blog.css"
@@ -254,6 +271,7 @@ upload_file "$ROOT_DIR/resources/views/admin/lessons/create.blade.php" "public_h
 upload_file "$ROOT_DIR/resources/views/admin/lessons/edit.blade.php" "public_html/resources/views/admin/lessons" "edit.blade.php"
 upload_file "$ROOT_DIR/resources/views/admin/categories/index.blade.php" "public_html/resources/views/admin/categories" "index.blade.php"
 upload_file "$ROOT_DIR/resources/views/admin/tags/index.blade.php" "public_html/resources/views/admin/tags" "index.blade.php"
+upload_file "$ROOT_DIR/resources/views/admin/agents/index.blade.php" "public_html/resources/views/admin/agents" "index.blade.php"
 upload_file "$ROOT_DIR/resources/views/admin/dashboard.blade.php" "public_html/resources/views/admin" "dashboard.blade.php"
 upload_file "$ROOT_DIR/resources/views/layouts/blog.blade.php" "public_html/resources/views/layouts" "blog.blade.php"
 upload_file "$ROOT_DIR/resources/views/layouts/app.blade.php" "public_html/resources/views/layouts" "app.blade.php"

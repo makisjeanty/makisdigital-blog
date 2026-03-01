@@ -39,5 +39,8 @@ return [
         'public_key' => env('MERCADOPAGO_PUBLIC_KEY'),
         'webhook_token' => env('MERCADOPAGO_WEBHOOK_TOKEN'),
     ],
+    'agents' => [
+        'api_key' => env('AGENTS_API_KEY'),
+    ],
 
 ];
