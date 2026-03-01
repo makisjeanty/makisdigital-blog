@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+staged_files="$(git diff --cached --name-only --diff-filter=ACMR)"
+
+if [[ -z "${staged_files}" ]]; then
+  exit 0
+fi
+
+blocked=0
+while IFS= read -r file; do
+  [[ -z "${file}" ]] && continue
+
+  if [[ "${file}" == ".env" || "${file}" == .env.* ]] && [[ "${file}" != ".env.example" ]]; then
+    echo "Blocked commit: ${file} contains environment secrets."
+    blocked=1
+  fi
+
+  if [[ "${file}" == ".cpanel.deploy.env" || "${file}" == ".cpanel.deploy.env.env" ]]; then
+    echo "Blocked commit: ${file} is a deploy credential file."
+    blocked=1
+  fi
+
+  if [[ "${file}" == .local-php-ext/* ]]; then
+    echo "Blocked commit: ${file} is local machine artifact."
+    blocked=1
+  fi
+done <<< "${staged_files}"
+
+if [[ ${blocked} -ne 0 ]]; then
+  echo "Commit aborted by security pre-commit hook."
+  exit 1
+fi
+
+secret_pattern='(ghp_[A-Za-z0-9]{36}|github_pat_[A-Za-z0-9_]{20,}|AKIA[0-9A-Z]{16}|-----BEGIN (RSA|EC|OPENSSH|PRIVATE) KEY-----|xox[baprs]-|sk_live_[0-9A-Za-z]{10,}|rk_live_[0-9A-Za-z]{10,})'
+
+if git diff --cached -- . | rg -n "${secret_pattern}" >/dev/null 2>&1; then
+  echo "Blocked commit: suspicious secret pattern detected in staged diff."
+  echo "Review staged changes with: git diff --cached"
+  exit 1
+fi
+
+exit 0
